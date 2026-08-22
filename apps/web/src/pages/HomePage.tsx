@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { createHomeAnimations } from '../animations/homeAnimations'
 import { SiteHeader } from '../components/layout/SiteHeader'
 import { useLenisScroll } from '../hooks/useLenisScroll'
+import { useHomeScroll } from '../hooks/useHomeScroll'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { HeroSection } from '../sections/home/HeroSection'
 import { JourneySection } from '../sections/home/JourneySection'
@@ -16,5 +17,6 @@ export function HomePage() {
   const isMotionEnabled = !prefersReducedMotion
   useLenisScroll(isMotionEnabled)
   useEffect(() => createHomeAnimations(root, isMotionEnabled), [isMotionEnabled])
+  useHomeScroll(root, isMotionEnabled)
   return <main ref={root}><SiteHeader /><HeroSection /><RealitySection /><JourneySection /><SignalSection /><WebinarSection /><RegisterSection /></main>
 }
