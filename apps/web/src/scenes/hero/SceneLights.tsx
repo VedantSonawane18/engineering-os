@@ -1,0 +1,1 @@
+export function SceneLights() { return <><ambientLight intensity={0.45} /><directionalLight position={[2, 3, 4]} intensity={0.8} color="#edebe5" /><pointLight position={[0, 0.2, 2]} intensity={1.1} color="#c8d751" distance={4} /></> }
