@@ -1,0 +1,5 @@
+import { TextLink } from '../../components/ui/TextLink'
+
+export function HeroSection() {
+  return <section className="hero section-grid" id="top"><div className="eyebrow" data-hero-reveal><span /> A clearer way through engineering</div><div className="hero-copy"><h1 data-hero-reveal>Engineering<br /><em>has a system.</em><br />Nobody showed you.</h1><p data-hero-reveal>Engineering OS turns the four years ahead into a path you can actually navigate — from your first lecture to your first offer.</p><TextLink href="#register" reveal>Start exploring</TextLink></div><div className="hero-system" aria-hidden="true" data-hero-reveal><span className="system-label top">STUDENT / V0.1</span><span className="system-label right">01—04</span><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="core">E<br />O</div><span className="system-label bottom">INITIALISE YOUR PATH</span></div><div className="hero-footer" data-hero-reveal><span>SCROLL TO ENTER</span><span>↓</span><span>INDIA / 2026</span></div></section>
+}
