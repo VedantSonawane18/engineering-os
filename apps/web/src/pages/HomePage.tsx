@@ -5,6 +5,7 @@ import { useLenisScroll } from '../hooks/useLenisScroll'
 import { useHomeScroll } from '../hooks/useHomeScroll'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { HeroSection } from '../sections/home/HeroSection'
+import { AcademicSystemSection } from '../sections/home/AcademicSystemSection'
 import { JourneySection } from '../sections/home/JourneySection'
 import { RealitySection } from '../sections/home/RealitySection'
 import { RegisterSection } from '../sections/home/RegisterSection'
@@ -18,5 +19,5 @@ export function HomePage() {
   useLenisScroll(isMotionEnabled)
   useEffect(() => createHomeAnimations(root, isMotionEnabled), [isMotionEnabled])
   useHomeScroll(root, isMotionEnabled)
-  return <main ref={root}><SiteHeader /><HeroSection /><RealitySection /><JourneySection /><SignalSection /><WebinarSection /><RegisterSection /></main>
+  return <main ref={root}><SiteHeader /><HeroSection /><RealitySection /><JourneySection /><AcademicSystemSection /><SignalSection /><WebinarSection /><RegisterSection /></main>
 }

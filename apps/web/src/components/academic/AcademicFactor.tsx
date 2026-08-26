@@ -1,0 +1,3 @@
+import type { AcademicFactor as AcademicFactorType } from '../../types/content'
+interface AcademicFactorProps { readonly factor: AcademicFactorType; readonly active: boolean }
+export function AcademicFactor({ factor, active }: AcademicFactorProps) { return <article id={`academic-factor-${factor.id}`} className={`academic-factor${active ? ' is-active' : ''}`} role="tabpanel" aria-labelledby={`academic-tab-${factor.id}`}><div><span>ACTIVE FACTOR</span><h3>{factor.label}</h3><p>{factor.explanation}</p></div><div><span>WHY IT MATTERS</span><p>{factor.whyItMatters}</p></div><div><span>COMMON MISTAKE</span><p>{factor.commonMistake}</p></div></article> }

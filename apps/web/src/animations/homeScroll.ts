@@ -20,12 +20,6 @@ export function createHomeScroll(root: RefObject<HTMLElement | null>, isEnabled:
         .from(manual, { clipPath: 'inset(0 100% 0 0)', duration: 0.7, ease: 'power3.out' }, 0.08)
       gsap.from(rows, { opacity: 0, y: 18, duration: 0.5, stagger: 0.12, ease: 'power2.out', scrollTrigger: { trigger: reality.querySelector('.challenge-list'), start: 'top 84%', once: true }, onStart: () => rows.forEach((row) => row.classList.add('is-active')) })
     }
-    const journey = root.current?.querySelector<HTMLElement>('.journey')
-    if (journey) {
-      const track = journey.querySelector<HTMLElement>('.year-track')
-      const years = gsap.utils.toArray<HTMLElement>(journey.querySelectorAll('.year'))
-      if (track && years.length) gsap.to(track, { '--journey-progress': 1, ease: 'none', scrollTrigger: { trigger: journey, start: 'top 65%', end: 'bottom 65%', scrub: 0.45, onUpdate: (self) => { const activeIndex = Math.min(years.length - 1, Math.floor(self.progress * years.length)); years.forEach((year, index) => year.classList.toggle('is-active', index === activeIndex)) } } })
-    }
     const signal = root.current?.querySelector<HTMLElement>('.signal')
     if (signal) gsap.timeline({ scrollTrigger: { trigger: signal, start: 'top 77%', end: 'center 58%', scrub: 0.5 } })
       .from(signal.querySelectorAll('.signal-axis'), { scaleX: 0, transformOrigin: 'left center', stagger: 0.12, ease: 'none' })

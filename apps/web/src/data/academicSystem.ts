@@ -1,0 +1,13 @@
+import type { AcademicFactor } from '../types/content'
+
+export const academicFactors: readonly AcademicFactor[] = [
+  { id: 'attendance', label: 'ATTENDANCE', explanation: 'Missing classes can create problems beyond attendance itself. You lose explanations, practical context and continuity.', whyItMatters: 'Consistency gives you the context needed for everything that follows.', commonMistake: 'Treating class time as optional until the semester becomes difficult.' },
+  { id: 'internals', label: 'INTERNALS', explanation: 'Small assessments compound. Ignoring them because they seem less important can make the end-sem unnecessarily difficult.', whyItMatters: 'They create early feedback and reduce pressure later.', commonMistake: 'Assuming only the final examination matters.' },
+  { id: 'practicals', label: 'ASSIGNMENTS / PRACTICALS', explanation: 'These are opportunities to secure marks while building practical understanding.', whyItMatters: 'Applied work turns theory into something you can use.', commonMistake: 'Submitting work without understanding the underlying process.' },
+  { id: 'end-sem', label: 'END-SEM', explanation: 'The final examination matters, but it should not be the only thing you prepare for.', whyItMatters: 'A steady semester makes final revision more useful and less reactive.', commonMistake: 'Waiting until the end of semester to begin serious preparation.' },
+  { id: 'semester-performance', label: 'SEMESTER PERFORMANCE', explanation: 'Each semester becomes part of a longer academic record and a clearer picture of your habits.', whyItMatters: 'Progress is easier to sustain when you review what worked each term.', commonMistake: 'Letting one difficult subject become a backlog without acting early.' },
+  { id: 'cgpa', label: 'CGPA', explanation: 'Your CGPA is not a measure of your entire ability. It is nevertheless a filter used by many opportunities.', whyItMatters: 'It can affect which academic and career conversations are open to you.', commonMistake: 'Assuming CGPA can always be repaired later.' },
+  { id: 'eligibility', label: 'ELIGIBILITY / OPPORTUNITIES', explanation: 'Some companies, internships and academic opportunities use academic criteria. You may not control every criterion, but you can avoid unnecessarily closing doors.', whyItMatters: 'Strong options come from keeping both academic and technical paths open.', commonMistake: 'Sacrificing academics entirely for random technology learning.' },
+]
+
+export const academicGuidance = 'This is conceptual guidance. Your university’s grading, attendance and eligibility rules may differ — understand the rules that apply to you.'

@@ -1,0 +1,8 @@
+import type { JourneyYear } from '../types/content'
+
+export const journeyYears: readonly JourneyYear[] = [
+  { id: 'foundation', number: '01', label: 'YEAR 01', title: 'FOUNDATION', thesis: 'Learn how engineering actually works.', priorities: ['Programming fundamentals', 'College and academic system', 'CGPA strategy', 'Git and GitHub', 'Basic development', 'Finding direction'], buildItems: ['Programming fundamentals', 'Small projects', 'GitHub presence'], outcome: 'A strong technical and academic foundation.' },
+  { id: 'direction', number: '02', label: 'YEAR 02', title: 'DIRECTION', thesis: 'Stop collecting technologies. Start choosing a direction.', priorities: ['DSA', 'Development / AI / other domains', 'Problem solving', 'Projects', 'Technical exploration'], buildItems: ['Serious portfolio projects', 'DSA consistency', 'First meaningful specialization'], outcome: 'A clear technical direction.' },
+  { id: 'proof', number: '03', label: 'YEAR 03', title: 'PROOF', thesis: 'Turn knowledge into evidence.', priorities: ['Internships', 'Advanced projects', 'Open source', 'Resume', 'Technical depth'], buildItems: ['Production-quality projects', 'Internship experience', 'Strong GitHub portfolio'], outcome: 'Evidence that you can actually build.' },
+  { id: 'execution', number: '04', label: 'YEAR 04', title: 'EXECUTION', thesis: 'Convert preparation into opportunities.', priorities: ['Placement preparation', 'Interviews', 'Revision', 'Portfolio', 'Applications'], buildItems: ['Interview-ready DSA', 'Resume refinement', 'Placement preparation'], outcome: 'Convert preparation into internships, placements and opportunities.' },
+]
