@@ -25,6 +25,60 @@ export function createHomeScroll(root: RefObject<HTMLElement | null>, isEnabled:
       .from(signal.querySelectorAll('.signal-axis'), { scaleX: 0, transformOrigin: 'left center', stagger: 0.12, ease: 'none' })
       .from(signal.querySelectorAll('.signal-point'), { scale: 0.3, opacity: 0, stagger: 0.11, ease: 'none' }, 0.1)
       .from(signal.querySelector('.signal-copy'), { x: 20, opacity: 0.5, ease: 'none' }, 0)
+    
+      const career = root.current?.querySelector<HTMLElement>('.career')
+
+      if (career) {
+        const stages = gsap.utils.toArray<HTMLElement>(
+          career.querySelectorAll('.career-stage'),
+        )
+      
+        const line = career.querySelector<HTMLElement>('.career__line span')
+      
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: career,
+            start: 'top 72%',
+            end: 'bottom 62%',
+            scrub: 0.7,
+          },
+        })
+          .from(career.querySelector('.career__header'), {
+            opacity: 0,
+            y: 35,
+            ease: 'none',
+          })
+          .from(
+            stages,
+            {
+              opacity: 0,
+              y: 28,
+              stagger: 0.12,
+              ease: 'none',
+            },
+            0.15,
+          )
+          .to(
+            line,
+            {
+              width: '100%',
+              ease: 'none',
+            },
+            0.15,
+          )
+      
+        gsap.from(career.querySelector('.career__closing'), {
+          opacity: 0,
+          y: 25,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: career.querySelector('.career__closing'),
+            start: 'top 82%',
+            once: true,
+          },
+        })
+      }
     const webinar = root.current?.querySelector<HTMLElement>('.webinar')
     if (webinar) gsap.timeline({ scrollTrigger: { trigger: webinar, start: 'top 78%', once: true } })
       .from(webinar.querySelector('.webinar-meta'), { opacity: 0, y: 18, duration: 0.45, ease: 'power2.out' })

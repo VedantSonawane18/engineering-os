@@ -1,3 +1,16 @@
 import type { ReactNode } from 'react'
-interface AppProvidersProps { readonly children: ReactNode }
-export function AppProviders({ children }: AppProvidersProps) { return <>{children}</> }
+import { AuthProvider } from '../../auth/AuthProvider'
+
+interface AppProvidersProps {
+  readonly children: ReactNode
+}
+
+export function AppProviders({
+  children,
+}: AppProvidersProps) {
+  return (
+    <AuthProvider>
+      {children}
+    </AuthProvider>
+  )
+}

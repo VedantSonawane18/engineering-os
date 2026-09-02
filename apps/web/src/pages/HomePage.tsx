@@ -9,8 +9,9 @@ import { AcademicSystemSection } from '../sections/home/AcademicSystemSection'
 import { JourneySection } from '../sections/home/JourneySection'
 import { RealitySection } from '../sections/home/RealitySection'
 import { RegisterSection } from '../sections/home/RegisterSection'
-import { SignalSection } from '../sections/home/SignalSection'
+import { TechnologySection } from '../sections/home/TechnologySection'
 import { WebinarSection } from '../sections/home/WebinarSection'
+import { CareerSection } from '../sections/home/CareerSection'
 
 export function HomePage() {
   const root = useRef<HTMLElement>(null)
@@ -19,5 +20,5 @@ export function HomePage() {
   useLenisScroll(isMotionEnabled)
   useEffect(() => createHomeAnimations(root, isMotionEnabled), [isMotionEnabled])
   useHomeScroll(root, isMotionEnabled)
-  return <main ref={root}><SiteHeader /><HeroSection /><RealitySection /><JourneySection /><AcademicSystemSection /><SignalSection /><WebinarSection /><RegisterSection /></main>
+  return <main ref={root}><SiteHeader /><HeroSection /><RealitySection /><JourneySection /><AcademicSystemSection /><TechnologySection /><WebinarSection /><RegisterSection /><CareerSection /></main>
 }

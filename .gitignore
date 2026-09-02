@@ -1,0 +1,21 @@
+# Backend
+apps/api/target/
+
+# Frontend
+apps/web/node_modules/
+apps/web/dist/
+
+# Local payment-screenshot storage (dev)
+uploads/
+apps/api/uploads/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.iml

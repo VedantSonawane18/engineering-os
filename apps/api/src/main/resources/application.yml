@@ -1,0 +1,73 @@
+spring:
+  jackson:
+    time-zone: UTC
+    
+  application:
+    name: engineering-os-api
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/engineering_os?options=-c%20TimeZone%3DUTC}
+    username: ${SPRING_DATASOURCE_USERNAME:engineering_os}
+    password: ${SPRING_DATASOURCE_PASSWORD:engineering_os_dev}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  session:
+    timeout: 30m
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${ENGINEERING_OS_MAIL_USERNAME:}
+    password: ${ENGINEERING_OS_MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
+
+  servlet:
+    session:
+        cookie:
+          http-only: true
+          secure: ${ENGINEERING_OS_SESSION_COOKIE_SECURE:false}
+          same-site: lax
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
+
+engineering-os:
+  admin:
+    email: ${ENGINEERING_OS_ADMIN_EMAIL:admin@engineeringos.in}
+    password: ${ENGINEERING_OS_ADMIN_PASSWORD:ChangeMe_Admin_123!}
+
+  uploads:
+    directory: ${ENGINEERING_OS_UPLOAD_DIR:./uploads}
