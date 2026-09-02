@@ -51,28 +51,6 @@ export function DashboardPage() {
     return <Navigate to="/admin" replace />
   }
 
-  /*
-   * Both email and phone verification are required
-   * before a student can access the dashboard.
-   *
-   * The verification state comes from the authenticated
-   * user, so manually entering /dashboard cannot bypass
-   * the verification requirement.
-   */
-  if (
-    !user.emailVerified
-  ) {
-    return (
-      <Navigate
-        to="/verify"
-        replace
-        state={{
-          email: user.email,
-        }}
-      />
-    )
-  }
-
   async function handleLogout() {
     await logout()
 
@@ -597,7 +575,7 @@ export function DashboardPage() {
             <Check size={17} />
 
             <span>
-              ACCOUNT VERIFIED
+              ACCOUNT ACTIVE
             </span>
           </div>
         </section>

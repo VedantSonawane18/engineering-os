@@ -13,8 +13,6 @@ export interface AuthUser {
   readonly phoneNumber: string | null
   readonly role: UserRole
   readonly approvalStatus: ApprovalStatus
-  readonly emailVerified: boolean
-  readonly phoneVerified: boolean
 }
 
 export interface LoginInput {

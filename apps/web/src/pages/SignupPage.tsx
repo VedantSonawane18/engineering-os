@@ -31,29 +31,15 @@ export function SignupPage() {
     setIsSubmitting(true)
 
     try {
-      const registeredUser = await register({
+      await register({
         fullName: fullName.trim(),
         email: email.trim(),
         phoneNumber: phoneNumber.trim(),
         password,
       })
 
-      if (
-        registeredUser.emailVerified &&
-        registeredUser.phoneVerified
-      ) {
-        navigate('/dashboard', {
-          replace: true,
-        })
-
-        return
-      }
-
-      navigate('/verify', {
+      navigate('/dashboard', {
         replace: true,
-        state: {
-          email: registeredUser.email,
-        },
       })
     } catch (submissionError) {
       setError(
@@ -76,7 +62,7 @@ export function SignupPage() {
           <em>system.</em>
         </>
       }
-      description="Create your Engineering OS account. Email and phone verification are required before you can continue."
+      description="Create your Engineering OS account and continue directly into your dashboard."
       footer={
         <p>
           Already registered?{' '}

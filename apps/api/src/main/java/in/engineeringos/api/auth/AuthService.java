@@ -1,36 +1,23 @@
 package in.engineeringos.api.auth;
 
-import in.engineeringos.api.email.EmailService;
 import in.engineeringos.api.user.User;
 import in.engineeringos.api.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.SecureRandom;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
 @Service
 public class AuthService {
 
-    private static final int OTP_EXPIRY_MINUTES = 10;
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EmailService emailService;
-
-    private final SecureRandom secureRandom =
-        new SecureRandom();
 
     public AuthService(
         UserRepository userRepository,
-        PasswordEncoder passwordEncoder,
-        EmailService emailService
+        PasswordEncoder passwordEncoder
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
     }
 
     @Transactional
@@ -65,22 +52,25 @@ public class AuthService {
             )
         );
 
-        user.setEmailVerified(false);
-
         /*
-         * Phone number is collected as a contact detail,
-         * but phone verification is not required.
+         * Email and phone OTP verification have been
+         * removed from Engineering OS.
          *
-         * We deliberately do not generate or send
-         * a phone OTP anymore.
+         * Account verification is now handled through
+         * the administrator approval workflow.
          */
+        user.setEmailVerified(true);
         user.setPhoneVerified(false);
 
-        user = userRepository.save(user);
+        /*
+         * New student accounts remain PENDING until
+         * manually reviewed and approved by an admin.
+         */
+        user.setApprovalStatus(
+            User.ApprovalStatus.PENDING
+        );
 
-        generateEmailVerificationCode(user);
-
-        return user;
+        return userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
@@ -128,136 +118,6 @@ public class AuthService {
                     "User account not found."
                 )
             );
-    }
-
-    @Transactional
-    public User verifyEmail(
-        String email,
-        String code
-    ) {
-
-        User user = findByEmail(email);
-
-        if (user.getEmailVerified()) {
-            return user;
-        }
-
-        if (
-            user.getEmailVerificationExpiresAt()
-                == null ||
-            Instant.now().isAfter(
-                user.getEmailVerificationExpiresAt()
-            )
-        ) {
-            throw new IllegalArgumentException(
-                "This email verification code has expired."
-            );
-        }
-
-        if (
-            user.getEmailVerificationCodeHash()
-                == null ||
-            !passwordEncoder.matches(
-                code,
-                user.getEmailVerificationCodeHash()
-            )
-        ) {
-            throw new IllegalArgumentException(
-                "Invalid email verification code."
-            );
-        }
-
-        user.setEmailVerified(true);
-
-        user.setEmailVerificationCodeHash(
-            null
-        );
-
-        user.setEmailVerificationExpiresAt(
-            null
-        );
-
-        return userRepository.save(user);
-    }
-
-    /*
-     * Retained for backwards compatibility with the
-     * existing API surface.
-     *
-     * Phone verification is no longer part of the
-     * registration requirement, so this method simply
-     * returns the current account.
-     */
-    @Transactional(readOnly = true)
-    public User verifyPhone(
-        String email,
-        String code
-    ) {
-
-        return findByEmail(email);
-    }
-
-    @Transactional
-    public void resendVerificationCodes(
-        String email
-    ) {
-
-        User user = findByEmail(email);
-
-        if (user.getEmailVerified()) {
-            throw new IllegalArgumentException(
-                "This email address is already verified."
-            );
-        }
-
-        generateEmailVerificationCode(user);
-
-        userRepository.save(user);
-    }
-
-    private void generateEmailVerificationCode(
-        User user
-    ) {
-
-        String emailCode =
-            generateOtp();
-
-        Instant expiresAt =
-            Instant.now()
-                .plus(
-                    OTP_EXPIRY_MINUTES,
-                    ChronoUnit.MINUTES
-                );
-
-        user.setEmailVerificationCodeHash(
-            passwordEncoder.encode(
-                emailCode
-            )
-        );
-
-        user.setEmailVerificationExpiresAt(
-            expiresAt
-        );
-
-        /*
-         * Real email delivery through Gmail SMTP.
-         */
-        emailService.sendVerificationCode(
-            user.getEmail(),
-            emailCode
-        );
-    }
-
-    private String generateOtp() {
-
-        int minimum = 100000;
-        int maximum = 1000000;
-
-        return String.valueOf(
-            secureRandom.nextInt(
-                maximum - minimum
-            ) + minimum
-        );
     }
 
     private String normalizeEmail(

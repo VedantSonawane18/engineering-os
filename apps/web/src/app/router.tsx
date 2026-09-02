@@ -7,7 +7,6 @@ import { SignupPage } from '../pages/SignupPage'
 import { AdminPage } from '../pages/AdminPage'
 import { AdminStudentsPage } from '../pages/admin/AdminStudentsPage'
 import { AdminStudentDetailPage } from '../pages/admin/AdminStudentDetailPage'
-import { VerifyPage } from '../pages/VerifyPage'
 import { PaymentPage } from '../pages/PaymentPage'
 import { AdminPaymentsPage } from '../pages/admin/AdminPaymentsPage'
 import { QueryPage } from '../pages/QueryPage'
@@ -20,10 +19,6 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
-  },
-  {
-    path: '/verify',
-    element: <VerifyPage />,
   },
   {
     path: '/webinar',

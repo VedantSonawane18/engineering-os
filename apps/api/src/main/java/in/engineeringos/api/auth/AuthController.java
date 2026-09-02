@@ -4,9 +4,6 @@ import in.engineeringos.api.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -133,87 +130,6 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/verify-email")
-    public ResponseEntity<?> verifyEmail(
-        @Valid @RequestBody VerifyCodeRequest request
-    ) {
-
-        try {
-
-            User user = authService.verifyEmail(
-                request.email(),
-                request.code()
-            );
-
-            return ResponseEntity.ok(
-                AuthResponse.from(user)
-            );
-
-        } catch (IllegalArgumentException exception) {
-
-            return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(
-                    new ErrorResponse(
-                        exception.getMessage()
-                    )
-                );
-        }
-    }
-
-    @PostMapping("/verify-phone")
-    public ResponseEntity<?> verifyPhone(
-        @Valid @RequestBody VerifyCodeRequest request
-    ) {
-
-        try {
-
-            User user = authService.verifyPhone(
-                request.email(),
-                request.code()
-            );
-
-            return ResponseEntity.ok(
-                AuthResponse.from(user)
-            );
-
-        } catch (IllegalArgumentException exception) {
-
-            return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(
-                    new ErrorResponse(
-                        exception.getMessage()
-                    )
-                );
-        }
-    }
-
-    @PostMapping("/resend-verification")
-    public ResponseEntity<?> resendVerification(
-        @Valid @RequestBody ResendVerificationRequest request
-    ) {
-
-        try {
-
-            authService.resendVerificationCodes(
-                request.email()
-            );
-
-            return ResponseEntity.noContent().build();
-
-        } catch (IllegalArgumentException exception) {
-
-            return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(
-                    new ErrorResponse(
-                        exception.getMessage()
-                    )
-                );
-        }
-    }
-
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(
         HttpServletRequest httpRequest
@@ -294,29 +210,6 @@ public class AuthController {
             );
         }
     }
-
-    public record VerifyCodeRequest(
-
-        @NotBlank
-        @Email
-        String email,
-
-        @NotBlank
-        @Pattern(
-            regexp = "^\\d{6}$",
-            message = "Verification code must contain 6 digits."
-        )
-        String code
-
-    ) {}
-
-    public record ResendVerificationRequest(
-
-        @NotBlank
-        @Email
-        String email
-
-    ) {}
 
     public record ErrorResponse(
         String message

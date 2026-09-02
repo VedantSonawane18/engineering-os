@@ -26,34 +26,6 @@ public class EmailService {
         this.fromAddress = fromAddress;
     }
 
-    public void sendVerificationCode(
-        String recipient,
-        String code
-    ) {
-
-        send(
-            recipient,
-            "Engineering OS - Verify Your Account",
-            """
-            Hello,
-
-            Welcome to Engineering OS.
-
-            Your email verification code is:
-
-            %s
-
-            This code will expire in 10 minutes.
-
-            If you did not create an Engineering OS
-            account, you can safely ignore this email.
-
-            Regards,
-            Engineering OS
-            """.formatted(code)
-        );
-    }
-
     public void sendApplicationApproved(
         String recipient,
         String studentName
