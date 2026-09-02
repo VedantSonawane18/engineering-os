@@ -65,6 +65,8 @@ logging:
     org.hibernate.SQL: WARN
 
 engineering-os:
+  frontend-origin: ${ENGINEERING_OS_FRONTEND_ORIGIN:http://localhost:5173}
+
   admin:
     email: ${ENGINEERING_OS_ADMIN_EMAIL:admin@engineeringos.in}
     password: ${ENGINEERING_OS_ADMIN_PASSWORD:ChangeMe_Admin_123!}
