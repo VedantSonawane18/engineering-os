@@ -2,6 +2,7 @@ package in.engineeringos.api.auth;
 
 import in.engineeringos.api.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -25,14 +26,19 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(
         @Valid @RequestBody RegisterRequest request,
-        HttpServletRequest httpRequest
+        HttpServletRequest httpRequest,
+        HttpServletResponse httpResponse
     ) {
 
         try {
 
             User user = authService.register(request);
 
-            authenticateSession(user, httpRequest);
+            authenticateSession(
+                user,
+                httpRequest,
+                httpResponse
+            );
 
             return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -53,14 +59,19 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(
         @Valid @RequestBody LoginRequest request,
-        HttpServletRequest httpRequest
+        HttpServletRequest httpRequest,
+        HttpServletResponse httpResponse
     ) {
 
         try {
 
             User user = authService.authenticate(request);
 
-            authenticateSession(user, httpRequest);
+            authenticateSession(
+                user,
+                httpRequest,
+                httpResponse
+            );
 
             return ResponseEntity.ok(
                 AuthResponse.from(user)
@@ -149,7 +160,8 @@ public class AuthController {
 
     private void authenticateSession(
         User user,
-        HttpServletRequest httpRequest
+        HttpServletRequest httpRequest,
+        HttpServletResponse httpResponse
     ) {
 
         UsernamePasswordAuthenticationToken authentication =
@@ -183,6 +195,13 @@ public class AuthController {
                 .SPRING_SECURITY_CONTEXT_KEY,
             context
         );
+
+        new HttpSessionSecurityContextRepository()
+            .saveContext(
+                context,
+                httpRequest,
+                httpResponse
+            );
     }
 
     public record AuthResponse(
