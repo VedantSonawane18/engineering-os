@@ -51,7 +51,7 @@ server:
         cookie:
           http-only: true
           secure: ${ENGINEERING_OS_SESSION_COOKIE_SECURE:false}
-          same-site: lax
+          same-site: none
 
 management:
   endpoints:
