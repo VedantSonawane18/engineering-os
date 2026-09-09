@@ -28,6 +28,7 @@ public class SecurityConfig {
 
                 .requestMatchers(
                     "/api/auth/**",
+                    "/api/keep-alive",
                     "/actuator/health"
                 ).permitAll()
 
